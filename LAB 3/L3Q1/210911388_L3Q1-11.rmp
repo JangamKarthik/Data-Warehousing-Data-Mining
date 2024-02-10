@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="10.0.000">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="10.0.000" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="retrieve" compatibility="10.0.000" expanded="true" height="68" name="Retrieve Golf" width="90" x="45" y="136">
+        <parameter key="repository_entry" value="//Samples/data/Golf"/>
+      </operator>
+      <operator activated="true" class="generate_id" compatibility="10.0.000" expanded="true" height="82" name="Generate ID" width="90" x="246" y="136">
+        <parameter key="create_nominal_ids" value="false"/>
+        <parameter key="offset" value="0"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="10.0.000" expanded="true" height="68" name="Retrieve Polynomial" width="90" x="45" y="289">
+        <parameter key="repository_entry" value="//Samples/data/Polynomial"/>
+      </operator>
+      <operator activated="true" class="generate_id" compatibility="10.0.000" expanded="true" height="82" name="Generate ID (2)" width="90" x="246" y="289">
+        <parameter key="create_nominal_ids" value="false"/>
+        <parameter key="offset" value="10"/>
+      </operator>
+      <operator activated="true" class="intersect" compatibility="10.0.000" expanded="true" height="82" name="Intersect" width="90" x="514" y="187"/>
+      <connect from_op="Retrieve Golf" from_port="output" to_op="Generate ID" to_port="example set input"/>
+      <connect from_op="Generate ID" from_port="example set output" to_op="Intersect" to_port="second"/>
+      <connect from_op="Retrieve Polynomial" from_port="output" to_op="Generate ID (2)" to_port="example set input"/>
+      <connect from_op="Generate ID (2)" from_port="example set output" to_op="Intersect" to_port="example set input"/>
+      <connect from_op="Intersect" from_port="example set output" to_port="result 1"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+    </process>
+  </operator>
+</process>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="10.0.000">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="10.0.000" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" breakpoints="after" class="retrieve" compatibility="10.0.000" expanded="true" height="68" name="Retrieve Golf" width="90" x="45" y="136">
+        <parameter key="repository_entry" value="//Samples/data/Golf"/>
+      </operator>
+      <operator activated="true" breakpoints="after" class="transpose" compatibility="10.0.000" expanded="true" height="82" name="Transpose" width="90" x="447" y="136"/>
+      <operator activated="true" breakpoints="after" class="retrieve" compatibility="10.0.000" expanded="true" height="68" name="Retrieve Golf (2)" width="90" x="45" y="391">
+        <parameter key="repository_entry" value="//Samples/data/Golf"/>
+      </operator>
+      <operator activated="true" breakpoints="after" class="transpose" compatibility="10.0.000" expanded="true" height="82" name="Transpose (2)" width="90" x="246" y="391"/>
+      <operator activated="true" breakpoints="after" class="transpose" compatibility="10.0.000" expanded="true" height="82" name="Transpose (3)" width="90" x="514" y="391"/>
+      <connect from_op="Retrieve Golf" from_port="output" to_op="Transpose" to_port="example set input"/>
+      <connect from_op="Transpose" from_port="example set output" to_port="result 1"/>
+      <connect from_op="Retrieve Golf (2)" from_port="output" to_op="Transpose (2)" to_port="example set input"/>
+      <connect from_op="Transpose (2)" from_port="example set output" to_op="Transpose (3)" to_port="example set input"/>
+      <connect from_op="Transpose (3)" from_port="example set output" to_port="result 2"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+      <portSpacing port="sink_result 3" spacing="0"/>
+    </process>
+  </operator>
+</process>
